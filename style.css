@@ -1,0 +1,379 @@
+/* ---------- Neon colours and basics ---------- */
+:root {
+  --bg: #04060f;
+  --panel: #0a1128;
+  --panel-2: #0f1a3a;
+  --text: #e8f1ff;
+  --muted: #a3b5d4;
+  --cyan: #00f0ff;
+  --pink: #ff2bd6;
+  --green: #39ff88;
+  --amber: #ffb800;
+  --red: #ff4d6d;
+  --radius: 14px;
+  --heading-font: "Orbitron", "Segoe UI", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  /* faint neon grid in the background */
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-attachment: fixed;
+  line-height: 1.5;
+}
+
+/* ---------- Header and footer ---------- */
+.site-header {
+  text-align: center;
+  padding: 36px 16px 20px;
+  background: linear-gradient(180deg, #0a1533, transparent);
+}
+.site-header h1 {
+  margin: 0 0 8px;
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 28px rgba(0, 240, 255, 0.4);
+}
+.site-header p { margin: 0; color: var(--muted); }
+.header-line {
+  width: 220px;
+  max-width: 60%;
+  height: 3px;
+  margin: 16px auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--cyan), var(--green));
+  box-shadow: 0 0 12px var(--cyan);
+}
+
+.site-footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 24px 16px;
+  font-size: 0.9rem;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ---------- Panels ---------- */
+.panel {
+  background: var(--panel);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
+}
+.panel h2 {
+  margin-top: 0;
+  color: var(--cyan);
+  font-family: var(--heading-font);
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+}
+
+.notice {
+  background: rgba(255, 184, 0, 0.08);
+  border: 1px solid var(--amber);
+  border-left: 6px solid var(--amber);
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 0 14px rgba(255, 184, 0, 0.2);
+}
+
+.hint { color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Aircraft cards ---------- */
+.aircraft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  background: #070d1f;
+  border: 2px solid rgba(0, 240, 255, 0.5);
+  border-radius: var(--radius);
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  font: inherit;
+  color: var(--text);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--pink);
+  box-shadow: 0 0 16px rgba(255, 43, 214, 0.55);
+}
+.card:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+
+.card.selected {
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px var(--green), 0 0 24px rgba(57, 255, 136, 0.7);
+  background: #0a1d1a;
+}
+
+.card-img {
+  height: 105px;
+  background: #070d1f;
+}
+.card-img img,
+.card-img svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-name {
+  display: block;
+  padding: 10px 6px;
+  font-weight: 600;
+}
+.card.selected .card-name { color: var(--green); }
+.card.selected .card-name::after { content: " ✓"; }
+
+.selected-line { margin-bottom: 0; }
+#selectedName { color: var(--green); }
+
+/* ---------- Form fields ---------- */
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+label { display: flex; flex-direction: column; font-weight: 600; font-size: 0.92rem; gap: 4px; }
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  color: var(--text);
+  border: 2px solid #1d3a73;
+  border-radius: 8px;
+  background: #060c1e;
+}
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+}
+input[type="text"]:disabled {
+  background: #0b1330;
+  color: #9fb2d3;
+  border-color: #16294f;
+  cursor: not-allowed;
+}
+
+/* ---------- Buttons ---------- */
+.button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+
+.btn {
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.btn:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.btn:hover:not(:disabled) { transform: translateY(-2px); }
+
+.btn-primary { background: var(--cyan); color: #04101f; box-shadow: 0 0 14px rgba(0, 240, 255, 0.7); }
+.btn-accent { background: var(--green); color: #04140c; box-shadow: 0 0 14px rgba(57, 255, 136, 0.6); }
+.btn-secondary { background: transparent; color: var(--pink); border-color: var(--pink); box-shadow: 0 0 12px rgba(255, 43, 214, 0.4); }
+.btn:disabled { background: #1b2640; color: #93a3c0; box-shadow: none; cursor: not-allowed; }
+
+/* ---------- Messages ---------- */
+.message {
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  background: rgba(255, 77, 109, 0.12);
+  border: 1px solid var(--red);
+  border-left: 6px solid var(--red);
+  color: #ffd6dd;
+}
+.message ul { margin: 6px 0 0; padding-left: 20px; }
+.message.info {
+  background: rgba(57, 255, 136, 0.1);
+  border-color: var(--green);
+  color: #d4ffe6;
+}
+
+/* ---------- Flight animation ---------- */
+.flight-box { margin-bottom: 18px; }
+
+.flight-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.flight-label { color: var(--muted); font-weight: 600; }
+
+.chip {
+  padding: 6px 14px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--cyan);
+  background: transparent;
+  border: 1px solid var(--cyan);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.chip:hover { box-shadow: 0 0 10px rgba(0, 240, 255, 0.6); }
+.chip:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.chip.active { background: var(--cyan); color: #04101f; }
+
+.stage {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--cyan);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);
+  background: linear-gradient(180deg, #03060f 0%, #0b1740 65%, #1b2b73 100%);
+}
+
+/* tiny stars */
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 60% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 80% 50%, #9ff, transparent),
+    radial-gradient(1px 1px at 35% 60%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 90% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 10% 70%, #9ff, transparent),
+    radial-gradient(1px 1px at 50% 45%, #fff, transparent);
+}
+
+.runway {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px;
+  background: #090e1d;
+  border-top: 2px solid var(--cyan);
+  box-shadow: 0 -4px 16px rgba(0, 240, 255, 0.5);
+}
+/* white dashes in the middle of the runway */
+.runway::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 55%;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #e8f1ff 0 30px, transparent 30px 60px);
+}
+.stage.running .runway::before { animation: dashes 0.5s linear infinite; }
+
+@keyframes dashes {
+  from { background-position: 0 0; }
+  to   { background-position: -60px 0; }
+}
+
+.plane {
+  position: absolute;
+  left: 10px;
+  bottom: 31px;
+  width: 110px;
+  transform-origin: 50% 60%;
+}
+.plane svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 6px var(--cyan));
+}
+
+.flight-readout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--muted);
+}
+.flight-readout strong { color: var(--green); font-size: 1.1rem; }
+#flightStatus { color: var(--amber); font-weight: 700; }
+
+/* ---------- Results ---------- */
+#resultsPanel:not([hidden]) { animation: fadeIn 0.6s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.summary-item {
+  background: var(--panel-2);
+  border: 1px solid rgba(57, 255, 136, 0.45);
+  border-radius: 10px;
+  padding: 12px;
+}
+.summary-item .label { display: block; color: var(--muted); font-size: 0.85rem; }
+.summary-item .value { font-size: 1.15rem; font-weight: 700; color: var(--green); }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 560px; }
+th, td { padding: 9px 10px; text-align: right; border-bottom: 1px solid #1a2b57; }
+th { background: var(--panel-2); color: var(--cyan); border-bottom: 2px solid var(--cyan); }
+tbody tr:nth-child(even) { background: rgba(0, 240, 255, 0.04); }
+tbody tr:hover { background: rgba(255, 43, 214, 0.1); }
+td:last-child, th:last-child { text-align: left; }
+tr.below-stall td { background: rgba(255, 77, 109, 0.16); color: #ffd6dd; }
+
+/* ---------- Credits ---------- */
+.credits { padding-left: 20px; margin: 0; }
+.credits li { margin-bottom: 6px; }
+a { color: var(--cyan); }
+a:hover { color: var(--pink); }
+
+/* ---------- Tucked-away credits in the footer ---------- */
+.credits-toggle { margin-top: 10px; font-size: 0.8rem; }
+.credits-toggle summary { cursor: pointer; color: var(--muted); }
+.credits-toggle summary:hover { color: var(--cyan); }
+.credits-toggle summary:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.credits-toggle[open] summary { color: var(--cyan); }
+.credits-toggle .credits { text-align: left; max-width: 700px; margin: 8px auto 0; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  .site-header h1 { font-size: 1.3rem; }
+  .btn { width: 100%; }
+  .aircraft-grid { grid-template-columns: repeat(2, 1fr); }
+  .stage { height: 200px; }
+  .plane { width: 90px; }
+}
+
+/* ---------- Respect people who prefer less motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aircraft Performance Calculator</title>
+  <!-- Futuristic font (if offline, a normal font is used instead) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>Aircraft Performance Calculator</h1>
+    <p>Pick an aircraft, choose a speed range, and watch lift, drag and stall speed come alive.</p>
+    <div class="header-line"></div>
+  </header>
+
+  <main class="container">
+
+    <!-- Safety / accuracy note (always visible) -->
+    <section class="notice" aria-label="Important note">
+      <strong>For educational demonstration only.</strong>
+      Aircraft data and aerodynamic coefficients are approximate assumptions.
+      This calculator is not for real flight planning, pilot training or aircraft operation.
+      This simple model does not account for altitude, weather, aircraft configuration,
+      engine thrust, or many other real-world factors.
+    </section>
+
+    <!-- Step 1: choose aircraft -->
+    <section class="panel">
+      <h2>1. Choose an aircraft</h2>
+      <div id="aircraftGrid" class="aircraft-grid" role="group" aria-label="Aircraft list">
+        <!-- Cards are created by script.js -->
+      </div>
+      <p class="selected-line">Selected: <strong id="selectedName">None</strong></p>
+    </section>
+
+    <form id="calcForm" novalidate>
+
+      <!-- Step 2: aircraft values -->
+      <section class="panel">
+        <h2>2. Aircraft values</h2>
+        <p class="hint" id="paramHint">These values are fixed for this aircraft. Select "Custom aircraft" to edit them.</p>
+        <div class="field-grid">
+          <label>Mass (kg)
+            <input type="text" id="mass" inputmode="decimal" autocomplete="off">
+          </label>
+          <label>Wing area (m²)
+            <input type="text" id="area" inputmode="decimal" autocomplete="off">
+          </label>
+          <label>Air density ρ (kg/m³)
+            <input type="text" id="rho" inputmode="decimal" autocomplete="off">
+          </label>
+          <label>Zero-lift drag coefficient CD0 (no unit)
+            <input type="text" id="cd0" inputmode="decimal" autocomplete="off">
+          </label>
+          <label>Induced drag factor k (no unit)
+            <input type="text" id="k" inputmode="decimal" autocomplete="off">
+          </label>
+          <label>Maximum lift coefficient CLmax (no unit)
+            <input type="text" id="clmax" inputmode="decimal" autocomplete="off">
+          </label>
+        </div>
+      </section>
+
+      <!-- Step 3: speed range -->
+      <section class="panel">
+        <h2>3. Speed range</h2>
+        <div class="field-grid">
+          <label>Starting speed (m/s)
+            <input type="text" id="startSpeed" inputmode="decimal" autocomplete="off">
+          </label>
+          <label>Ending speed (m/s)
+            <input type="text" id="endSpeed" inputmode="decimal" autocomplete="off">
+          </label>
+          <label>Speed interval (m/s)
+            <input type="text" id="stepSpeed" inputmode="decimal" autocomplete="off">
+          </label>
+        </div>
+        <p class="hint">Tip: 1 m/s = 3.6 km/h. At most 200 rows are shown.</p>
+
+        <div class="button-row">
+          <button type="submit" class="btn btn-primary" id="calcBtn">Calculate Performance</button>
+          <button type="button" class="btn btn-accent" id="csvBtn" disabled>Download CSV</button>
+          <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+        </div>
+      </section>
+    </form>
+
+    <!-- Messages (errors and info) -->
+    <div id="messageBox" class="message" role="alert" hidden></div>
+
+    <!-- Results -->
+    <section class="panel" id="resultsPanel" hidden>
+      <h2>Results for <span id="resultsName"></span></h2>
+
+      <!-- Flight animation -->
+      <div class="flight-box">
+        <div class="flight-controls">
+          <span class="flight-label">Flight view:</span>
+          <button type="button" class="chip active" id="modeTakeoff" aria-pressed="true">Take-off</button>
+          <button type="button" class="chip" id="modeLanding" aria-pressed="false">Landing</button>
+          <button type="button" class="chip" id="replayBtn">Replay ▶</button>
+        </div>
+        <div class="stage" id="stage" aria-label="Flight animation">
+          <div class="stars"></div>
+          <div class="plane" id="plane"></div>
+          <div class="runway"></div>
+        </div>
+        <div class="flight-readout">
+          <span>Speed: <strong id="liveSpeed">0.0</strong> m/s</span>
+          <span id="flightStatus" aria-live="polite">Ready</span>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-item"><span class="label">Weight</span><span class="value" id="outWeight"></span></div>
+        <div class="summary-item"><span class="label">Stall speed (m/s)</span><span class="value" id="outStallMs"></span></div>
+        <div class="summary-item"><span class="label">Stall speed (km/h)</span><span class="value" id="outStallKmh"></span></div>
+        <div class="summary-item"><span class="label">Fixed CL / CD / L/D</span><span class="value" id="outFixed"></span></div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Speed (m/s)</th>
+              <th>Lift (N)</th>
+              <th>Drag (N)</th>
+              <th>L/D (no unit)</th>
+              <th>Required CL (no unit)</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+      <p class="hint">
+        Lift, drag and L/D use a fixed CL of 0.5. "Required CL" is the lift coefficient needed to hold the
+        aircraft's weight at that speed. If it is above CLmax, the aircraft is below its stall speed.
+        The flight animation is a simple visual: the plane lifts off only when the speed passes the stall speed.
+      </p>
+    </section>
+
+    
+
+  </main>
+
+  <footer class="site-footer">
+  School project. Educational demonstration only. Not for real flight use.
+  <details class="credits-toggle">
+    <summary>Image credits</summary>
+    <ul id="creditsList" class="credits"></ul>
+  </details>
+</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
