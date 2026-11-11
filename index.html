@@ -3,90 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aircraft Performance Calculator</title>
+  <title>Aircraft Performance | Flight Systems Studio</title>
+  <meta name="theme-color" content="#07111b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="premium.css">
 </head>
 <body>
-
   <header class="site-header">
-    <h1>Aircraft Performance Calculator</h1>
-    <p>Pick an aircraft, choose a speed range, and watch lift, drag and stall speed come alive.</p>
+    <div class="header-brand"><span class="brand-mark" aria-hidden="true">A</span><span>FLIGHT SYSTEMS <span class="brand-light">/ LAB</span></span></div>
+    <p class="header-kicker">AIRCRAFT PERFORMANCE EXPLORER</p>
+    <h1>Designed for the journey.</h1>
+    <p class="header-subtitle">Explore aircraft capability, compare published range figures, and inspect an educational weather-readiness overview.</p>
     <div class="header-line"></div>
   </header>
 
   <main class="container">
+    <section class="cinema-hero" aria-label="Aircraft in flight video">
+      <iframe id="aircraftVideo" class="hero-video" src="https://www.youtube-nocookie.com/embed/C4x0aSh5AnA?autoplay=1&mute=1&loop=1&playlist=C4x0aSh5AnA&controls=0&playsinline=1&rel=0" title="Aircraft manufacturer in-flight video" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <span class="eyebrow"><span class="live-dot"></span> PERFORMANCE OVERVIEW</span>
+        <h2>Every aircraft has<br>its own story.</h2>
+        <p id="videoCaption">Airbus A350-1000 · Manufacturer video</p>
+        <a class="hero-link" href="https://www.youtube.com/@airbus/videos" target="_blank" rel="noopener">Explore Airbus videos <span aria-hidden="true">↗</span></a>
+      </div>
+      <span class="hero-index">01 <span>/</span> FLIGHT PROFILE</span>
+    </section>
 
     <section class="notice" aria-label="Important note">
-      <strong>For educational demonstration only.</strong>
-      Aircraft data and aerodynamic coefficients are approximate assumptions.
-      This calculator is not for real flight planning, pilot training or aircraft operation.
-      This simple model does not account for altitude, weather, aircraft configuration,
-      engine thrust, or many other real-world factors.
+      <strong>Educational demonstration only.</strong>
+      Aircraft data, weather ratings and system-response descriptions are illustrative assumptions—not approved performance data or operational advice. This calculator is not for flight planning, pilot training, aircraft operation, or emergency response. Maximum range varies by aircraft variant, payload, configuration and conditions; verify figures against current manufacturer documentation.
     </section>
 
     <section class="panel">
-      <h2>All-condition aircraft ranking</h2>
+      <div class="section-heading"><div><span class="section-index">01 / COMPARISON</span><h2>All-condition aircraft ranking</h2></div><p>Illustrative ratings · not an operational recommendation</p></div>
       <div id="rankingGrid" class="ranking-grid" aria-live="polite"></div>
     </section>
 
     <section class="panel">
-      <h2>Selected aircraft operating profile</h2>
+      <div class="section-heading"><div><span class="section-index">02 / AIRCRAFT PROFILE</span><h2>Selected aircraft operating profile</h2></div></div>
       <div id="selectedAircraftSummary" class="selected-summary"></div>
     </section>
 
     <section class="panel">
-      <h2>1. Choose an aircraft</h2>
-      <div id="aircraftGrid" class="aircraft-grid" role="group" aria-label="Aircraft list">
-      </div>
+      <div class="section-heading"><div><span class="section-index">03 / SELECT</span><h2>Choose an aircraft</h2></div><p>Choose an aircraft to update the flight film and profile.</p></div>
+      <div id="aircraftGrid" class="aircraft-grid" role="group" aria-label="Aircraft list"></div>
       <p class="selected-line">Selected: <strong id="selectedName">None</strong></p>
     </section>
 
     <form id="calcForm" novalidate>
       <section class="panel">
-        <h2>2. Aircraft values</h2>
+        <div class="section-heading"><div><span class="section-index">04 / MODEL INPUTS</span><h2>Aircraft values</h2></div></div>
         <p class="hint" id="paramHint">These values are fixed for this aircraft. Select "Custom aircraft" to edit them.</p>
         <div class="field-grid">
-          <label>Mass (kg)
-            <input type="text" id="mass" inputmode="decimal" autocomplete="off">
-          </label>
-          <label>Wing area (m²)
-            <input type="text" id="area" inputmode="decimal" autocomplete="off">
-          </label>
-          <label>Air density ρ (kg/m³)
-            <input type="text" id="rho" inputmode="decimal" autocomplete="off">
-          </label>
-          <label>Zero-lift drag coefficient CD0 (no unit)
-            <input type="text" id="cd0" inputmode="decimal" autocomplete="off">
-          </label>
-          <label>Induced drag factor k (no unit)
-            <input type="text" id="k" inputmode="decimal" autocomplete="off">
-          </label>
-          <label>Maximum lift coefficient CLmax (no unit)
-            <input type="text" id="clmax" inputmode="decimal" autocomplete="off">
-          </label>
+          <label>Mass (kg)<input type="text" id="mass" inputmode="decimal" autocomplete="off"></label>
+          <label>Wing area (m²)<input type="text" id="area" inputmode="decimal" autocomplete="off"></label>
+          <label>Air density ρ (kg/m³)<input type="text" id="rho" inputmode="decimal" autocomplete="off"></label>
+          <label>Zero-lift drag coefficient CD0<input type="text" id="cd0" inputmode="decimal" autocomplete="off"></label>
+          <label>Induced drag factor k<input type="text" id="k" inputmode="decimal" autocomplete="off"></label>
+          <label>Maximum lift coefficient CLmax<input type="text" id="clmax" inputmode="decimal" autocomplete="off"></label>
         </div>
       </section>
 
       <section class="panel">
-        <h2>3. Speed range</h2>
+        <div class="section-heading"><div><span class="section-index">05 / SPEED STUDY</span><h2>Speed range</h2></div></div>
         <div class="field-grid">
-          <label>Starting speed (m/s)
-            <input type="text" id="startSpeed" inputmode="decimal" autocomplete="off">
-          </label>
-          <label>Ending speed (m/s)
-            <input type="text" id="endSpeed" inputmode="decimal" autocomplete="off">
-          </label>
-          <label>Speed interval (m/s)
-            <input type="text" id="stepSpeed" inputmode="decimal" autocomplete="off">
-          </label>
+          <label>Starting speed (m/s)<input type="text" id="startSpeed" inputmode="decimal" autocomplete="off"></label>
+          <label>Ending speed (m/s)<input type="text" id="endSpeed" inputmode="decimal" autocomplete="off"></label>
+          <label>Speed interval (m/s)<input type="text" id="stepSpeed" inputmode="decimal" autocomplete="off"></label>
         </div>
         <p class="hint">Tip: 1 m/s = 3.6 km/h. At most 200 rows are shown.</p>
-
         <div class="button-row">
-          <button type="submit" class="btn btn-primary" id="calcBtn">Calculate Performance</button>
+          <button type="submit" class="btn btn-primary" id="calcBtn">Calculate performance</button>
           <button type="button" class="btn btn-accent" id="csvBtn" disabled>Download CSV</button>
           <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
         </div>
@@ -96,65 +87,58 @@
     <div id="messageBox" class="message" role="alert" hidden></div>
 
     <section class="panel" id="resultsPanel" hidden>
-      <h2>Results for <span id="resultsName"></span></h2>
-
+      <div class="section-heading"><div><span class="section-index">06 / SIMULATION</span><h2>Results for <span id="resultsName"></span></h2></div></div>
       <div class="flight-box">
-        <div class="flight-controls">
-          <span class="flight-label">Flight view:</span>
-          <button type="button" class="chip active" id="modeTakeoff" aria-pressed="true">Take-off</button>
-          <button type="button" class="chip" id="modeLanding" aria-pressed="false">Landing</button>
-          <button type="button" class="chip" id="replayBtn">Replay ▶</button>
-        </div>
-        <div class="stage" id="stage" aria-label="Flight animation">
-          <div class="stars"></div>
-          <div class="plane" id="plane"></div>
-          <div class="runway"></div>
-        </div>
-        <div class="flight-readout">
-          <span>Speed: <strong id="liveSpeed">0.0</strong> m/s</span>
-          <span id="flightStatus" aria-live="polite">Ready</span>
-        </div>
+        <div class="flight-controls"><span class="flight-label">Flight view:</span><button type="button" class="chip active" id="modeTakeoff" aria-pressed="true">Take-off</button><button type="button" class="chip" id="modeLanding" aria-pressed="false">Landing</button><button type="button" class="chip" id="replayBtn">Replay ▶</button></div>
+        <div class="stage" id="stage" aria-label="Flight animation"><div class="stars"></div><div class="plane" id="plane"></div><div class="runway"></div></div>
+        <div class="flight-readout"><span>Speed: <strong id="liveSpeed">0.0</strong> m/s</span><span id="flightStatus" aria-live="polite">Ready</span></div>
       </div>
-
       <div class="summary-grid">
         <div class="summary-item"><span class="label">Weight</span><span class="value" id="outWeight"></span></div>
         <div class="summary-item"><span class="label">Stall speed (m/s)</span><span class="value" id="outStallMs"></span></div>
         <div class="summary-item"><span class="label">Stall speed (km/h)</span><span class="value" id="outStallKmh"></span></div>
         <div class="summary-item"><span class="label">Fixed CL / CD / L/D</span><span class="value" id="outFixed"></span></div>
       </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Speed (m/s)</th>
-              <th>Lift (N)</th>
-              <th>Drag (N)</th>
-              <th>L/D (no unit)</th>
-              <th>Required CL (no unit)</th>
-              <th>Note</th>
-            </tr>
-          </thead>
-          <tbody id="resultsBody"></tbody>
-        </table>
-      </div>
-      <p class="hint">
-        Lift, drag and L/D use a fixed CL of 0.5. "Required CL" is the lift coefficient needed to hold the
-        aircraft's weight at that speed. If it is above CLmax, the aircraft is below its stall speed.
-        The flight animation is a simple visual: the plane lifts off only when the speed passes the stall speed.
-      </p>
+      <div class="table-wrap"><table><thead><tr><th>Speed (m/s)</th><th>Lift (N)</th><th>Drag (N)</th><th>L/D</th><th>Required CL</th><th>Note</th></tr></thead><tbody id="resultsBody"></tbody></table></div>
+      <p class="hint">Lift, drag and L/D use a fixed CL of 0.5. Required CL is the coefficient needed to hold aircraft weight at that speed. This simplified animation and model are not flight simulation.</p>
     </section>
-
   </main>
 
-  <footer class="site-footer">
-    School project. Educational demonstration only. Not for real flight use.
-    <details class="credits-toggle">
-      <summary>Image credits</summary>
-      <ul id="creditsList" class="credits"></ul>
-    </details>
+  <footer class="site-footer">School project · Educational demonstration only · Not for real flight use
+    <details class="credits-toggle"><summary>Image and video credits</summary><ul id="creditsList" class="credits"></ul><p class="media-credit">Background embeds are hosted by YouTube. Media rights belong to their respective publishers; playback availability and exact footage may vary by region.</p></details>
   </footer>
 
+  <script>
+    (function () {
+      var videoProfiles = {
+        a350k: { id: "C4x0aSh5AnA", caption: "Airbus A350-1000 · Airbus video" },
+        a350f: { id: "kPQ0AVWhPGE", caption: "Airbus A350F · Airbus video" },
+        a380: { id: "be4U7oUvlrE", caption: "Airbus A380 · Airbus video" },
+        a320: { id: "QDCqUNvmW7U", caption: "A320 family · Airbus video" },
+        a321: { id: "eMmjprBfUMc", caption: "A321 family · Airbus video" },
+        beluga: { id: "HR9y9W19uA0", caption: "BelugaXL · Airbus video" },
+        b737: { id: "TkdtzSsbqQM", caption: "737 family · Boeing video" },
+        b747: { id: "AenPdwQAbvY", caption: "747-8 · Boeing video" },
+        b787: { id: "9M1q4Z_C5_k", caption: "787-9 · Boeing video" }
+      };
+      function setAircraftVideo(id) {
+        var profile = videoProfiles[id];
+        if (!profile) return;
+        var frame = document.getElementById("aircraftVideo");
+        var caption = document.getElementById("videoCaption");
+        var src = "https://www.youtube-nocookie.com/embed/" + profile.id + "?autoplay=1&mute=1&loop=1&playlist=" + profile.id + "&controls=0&playsinline=1&rel=0";
+        if (frame.src !== src) frame.src = src;
+        caption.textContent = profile.caption;
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        var grid = document.getElementById("aircraftGrid");
+        grid.addEventListener("click", function (event) {
+          var card = event.target.closest(".card");
+          if (card) setAircraftVideo(card.id.replace("card-", ""));
+        });
+      });
+    })();
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
