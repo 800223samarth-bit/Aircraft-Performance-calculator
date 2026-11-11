@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aircraft Performance Calculator</title>
-  <!-- Futuristic font (if offline, a normal font is used instead) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
@@ -20,7 +19,6 @@
 
   <main class="container">
 
-    <!-- Safety / accuracy note (always visible) -->
     <section class="notice" aria-label="Important note">
       <strong>For educational demonstration only.</strong>
       Aircraft data and aerodynamic coefficients are approximate assumptions.
@@ -29,18 +27,24 @@
       engine thrust, or many other real-world factors.
     </section>
 
-    <!-- Step 1: choose aircraft -->
+    <section class="panel">
+      <h2>All-condition aircraft ranking</h2>
+      <div id="rankingGrid" class="ranking-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Selected aircraft operating profile</h2>
+      <div id="selectedAircraftSummary" class="selected-summary"></div>
+    </section>
+
     <section class="panel">
       <h2>1. Choose an aircraft</h2>
       <div id="aircraftGrid" class="aircraft-grid" role="group" aria-label="Aircraft list">
-        <!-- Cards are created by script.js -->
       </div>
       <p class="selected-line">Selected: <strong id="selectedName">None</strong></p>
     </section>
 
     <form id="calcForm" novalidate>
-
-      <!-- Step 2: aircraft values -->
       <section class="panel">
         <h2>2. Aircraft values</h2>
         <p class="hint" id="paramHint">These values are fixed for this aircraft. Select "Custom aircraft" to edit them.</p>
@@ -66,7 +70,6 @@
         </div>
       </section>
 
-      <!-- Step 3: speed range -->
       <section class="panel">
         <h2>3. Speed range</h2>
         <div class="field-grid">
@@ -90,14 +93,11 @@
       </section>
     </form>
 
-    <!-- Messages (errors and info) -->
     <div id="messageBox" class="message" role="alert" hidden></div>
 
-    <!-- Results -->
     <section class="panel" id="resultsPanel" hidden>
       <h2>Results for <span id="resultsName"></span></h2>
 
-      <!-- Flight animation -->
       <div class="flight-box">
         <div class="flight-controls">
           <span class="flight-label">Flight view:</span>
@@ -145,17 +145,15 @@
       </p>
     </section>
 
-    
-
   </main>
 
   <footer class="site-footer">
-  School project. Educational demonstration only. Not for real flight use.
-  <details class="credits-toggle">
-    <summary>Image credits</summary>
-    <ul id="creditsList" class="credits"></ul>
-  </details>
-</footer>
+    School project. Educational demonstration only. Not for real flight use.
+    <details class="credits-toggle">
+      <summary>Image credits</summary>
+      <ul id="creditsList" class="credits"></ul>
+    </details>
+  </footer>
 
   <script src="script.js"></script>
 </body>
