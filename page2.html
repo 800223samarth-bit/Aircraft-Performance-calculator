@@ -1,19 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Other page</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/page2.html" aria-current="page">Other page</a>
-    </nav>
-    <main>
-      <h1>My other page</h1>
-    </main>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111b">
+  <title>Aircraft Library | Flight Systems Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="premium.css">
+  <style>
+    .page-nav { display:flex; justify-content:center; gap:12px; padding:16px; }
+    .page-nav a { display:inline-block; padding:10px 16px; border:1px solid rgba(174,202,202,.22); border-radius:10px; text-decoration:none; }
+    .page-nav a[aria-current="page"] { background:rgba(131,214,208,.12); border-color:#83d6d0; }
+    .aircraft-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .aircraft-item { padding:18px; border:1px solid rgba(174,202,202,.16); border-radius:15px; background:rgba(7,17,27,.8); }
+    .aircraft-item h3 { margin:0 0 8px; color:#b8e3d1; font-family:Manrope,sans-serif; }
+    .aircraft-item p { margin:0; color:#b6c3c6; }
+    .page-intro { max-width:760px; color:#b6c3c6; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-brand"><span class="brand-mark" aria-hidden="true">A</span><span>FLIGHT SYSTEMS <span class="brand-light">/ LAB</span></span></div>
+    <p class="header-kicker">AIRCRAFT PERFORMANCE EXPLORER</p>
+    <h1>Aircraft library</h1>
+    <p class="page-intro">A quick guide to the illustrative aircraft profiles available in the calculator.</p>
+    <div class="header-line"></div>
+  </header>
+  <nav class="page-nav" aria-label="Main navigation">
+    <a href="index.html">Performance calculator</a>
+    <a href="page2.html" aria-current="page">Aircraft library</a>
+  </nav>
+  <main class="container">
+    <section class="panel">
+      <div class="section-heading"><div><span class="section-index">01 / THE FLEET</span><h2>Aircraft available</h2></div></div>
+      <p class="page-intro">Choose any aircraft in the calculator to load its demonstration inputs and profile. “Custom aircraft” lets you edit the model inputs. The example numbers and ratings are simplified educational assumptions, not approved aircraft data.</p>
+      <div class="aircraft-list">
+        <article class="aircraft-item"><h3>Airbus A350-1000</h3><p>Long-range, wide-body example profile.</p></article>
+        <article class="aircraft-item"><h3>Airbus A350F</h3><p>Freighter example profile.</p></article>
+        <article class="aircraft-item"><h3>Airbus A380-800</h3><p>Large, long-range passenger aircraft example.</p></article>
+        <article class="aircraft-item"><h3>Airbus A320 / A321</h3><p>Single-aisle passenger aircraft examples.</p></article>
+        <article class="aircraft-item"><h3>Airbus BelugaXL</h3><p>Specialized cargo aircraft example.</p></article>
+        <article class="aircraft-item"><h3>Boeing 737-800 / 747-8 / 787-9</h3><p>Single-aisle and wide-body example profiles.</p></article>
+        <article class="aircraft-item"><h3>Custom aircraft</h3><p>Enter your own illustrative values in the calculator.</p></article>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="section-heading"><div><span class="section-index">02 / HOW TO USE</span><h2>Run a demonstration</h2></div></div>
+      <ol>
+        <li>Open the performance calculator and select an aircraft card.</li>
+        <li>Confirm that the example aircraft values appear in the model inputs.</li>
+        <li>Set a speed range and select <strong>Calculate performance</strong> to display results.</li>
+        <li>Use <strong>Download CSV</strong> to export the displayed table.</li>
+      </ol>
+      <p class="notice"><strong>Safety note:</strong> This school-project calculator is not validated for flight planning, aircraft operation, or real performance decisions. Never use its output operationally.</p>
+      <p><a class="btn btn-primary" href="index.html">Open the performance calculator</a></p>
+    </section>
+  </main>
+  <footer class="site-footer">School project · Educational demonstration only · Not for real flight use</footer>
+</body>
 </html>
